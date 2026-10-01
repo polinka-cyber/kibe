@@ -8,9 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="fonts.css">
  
     <style>
+        @font-face {
+            font-family: "ArialGeo";
+            src: url(image/arial_geo.ttf);
+        }
         :root {
             --primary-blue: #2A6F97;
             --sky-blue: #48CAE4;
@@ -98,7 +101,7 @@
         .hero {
             padding: 4rem 5%;
             text-align: center;
-            background: linear-gradient(rgba(11, 19, 43, 0.75), rgba(28, 37, 65, 0.75)), url("src/image/photopng.png");
+            background: linear-gradient(rgba(11, 19, 43, 0.75), rgba(28, 37, 65, 0.75)), url("image/photopng.png");
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -611,11 +614,84 @@
         .faq-item.active .faq-question i {
             transform: rotate(180deg);
         }
+        .reviews-section {
+    padding: 50px 20px;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffffff, #f4f8fb);
+}
+
+.section-title {
+    font-size: 26px;
+    margin-bottom: 35px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.review-card {
+    background: #ffffff;
+    border: 2px solid #e1e8ed;
+    border-radius: 16px;
+    padding: 25px;
+    width: 320px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-6px);
+    border-color: #3498db; /* ცისფერი ბორდერი მაუსის მიტანისას */
+    box-shadow: 0 12px 25px rgba(52, 152, 219, 0.15);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3498db;
+}
+
+.reviewer-name {
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 3px;
+}
+
+.stars {
+    color: #ffc107; 
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-size: 14px;
+    color: #555555;
+    line-height: 1.6;
+    font-style: italic;
+}
+        
     </style>
 </head>
 <body>
 
-    <!-- ფიქსირებული სოციალური ქსელები გვერდზე (მარჯვენა მხარეს) -->
+    
     <div class="social-sidebar">
         <a href="https://www.facebook.com/share/1F4XBx5vFT/?mibextid=wwXIfr" target="_blank" class="fb-icon" title="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
@@ -627,7 +703,7 @@
 
     <header>
         <a href="#home" class="logo-container">
-            <img src="src/image/logo.jpg" alt="ლოგო">
+            <img src="image/logo.jpg" alt="ლოგო">
             <span>კიბე განათლებული მომავლისკენ  <br> Stairway to Educated Future</span>
         </a>
         <nav>
@@ -653,7 +729,7 @@
         <div class="puzzle-grid-3">
             <div class="puzzle-card-top puzzle-card-1" onclick="showCourseInfo('school')">
                 <div class="puzzle-img-container">
-                    <img src="src/image/56.jpg" alt="სკოლა">
+                    <img src="image/56.jpg" alt="სკოლა">
                 </div>
                 <div class="puzzle-content">
                     <div>
@@ -666,7 +742,7 @@
 
             <div class="puzzle-card-top puzzle-card-2" onclick="showCourseInfo('kindergarten')">
                 <div class="puzzle-img-container">
-                    <img src="src/image/78.jpg" alt="საბავშვო ბაღი">
+                    <img src="image/78.jpg" alt="საბავშვო ბაღი">
                 </div>
                 <div class="puzzle-content">
                     <div>
@@ -679,7 +755,7 @@
 
             <div class="puzzle-card-top puzzle-card-3" onclick="showCourseInfo('sunday')">
                 <div class="puzzle-img-container">
-                    <img src="src/image/910.jpg" alt="საკვირაო სკოლა">
+                    <img src="image/910.jpg" alt="საკვირაო სკოლა">
                 </div>
                 <div class="puzzle-content">
                     <div>
@@ -694,7 +770,7 @@
         <section class="single-team-section" style="padding-bottom: 0;">
             <h2 class="section-title">ჩვენი გუნდი</h2>
             <div class="single-team-container">
-                <img src="src/image/kibe.jpg" alt="ჩვენი გუნდი" class="single-team-img">
+                <img src="image/kibe.jpg" alt="ჩვენი გუნდი" class="single-team-img">
                 <div class="single-team-info">
                     <h3>პროფესიონალთა გუნდი</h3>
                     <p>ჩვენი გამოცდილი და კვალიფიციური პედაგოგები მზად არიან იზრუნონ თქვენი შვილის წარმატებაზე.</p>
@@ -717,12 +793,58 @@
         <h2 class="section-title">ფოტო გალერია</h2>
         <div class="gallery-box">
             <div class="media-grid">
-                <div class="media-card"><img src="src/image/11.jpg" alt="გალერიის ფოტო 1"></div>
-                <div class="media-card"><img src="src/image/22.jpg" alt="გალერიის ფოტო 2"></div>
-                <div class="media-card"><img src="src/image/33.jpg" alt="გალერიის ფოტო 3"></div>
+                <div class="media-card"><img src="image/11.jpg" alt="გალერიის ფოტო 1"></div>
+                <div class="media-card"><img src="image/22.jpg" alt="გალერიის ფოტო 2"></div>
+                <div class="media-card"><img src="image/33.jpg" alt="გალერიის ფოტო 3"></div>
             </div>
         </div>
     </section>
+
+<section class="reviews-section">
+    <h2 class="section-title">რას ამბობენ მკითხველები</h2>
+    <div class="reviews-container">
+        
+ 
+        <div class="review-card">
+            <div class="review-header">
+                <img src="image/pf1.jpg" alt="მკითხველი" class="reviewer-avatar">
+                <div>
+                    <h4 class="reviewer-name">ანა მ.</h4>
+                    <div class="stars">★ ★ ★ ★ ★</div>
+                </div>
+            </div>
+            <p class="review-text">„ძალიან საინტერესო და შთამბეჭდავი ბლოგია! თითოეული სტატია განსაკუთრებულ ფიქრს აწყებინებს მკითხველს.“</p>
+        </div>
+
+    
+        <div class="review-card">
+            <div class="review-header">
+                <img src="image/pf2.jpg" alt="მკითხველი" class="reviewer-avatar">
+                <div>
+                    <h4 class="reviewer-name">გიორგი კ.</h4>
+                    <div class="stars">★ ★ ★ ★ ★</div>
+                </div>
+            </div>
+            <p class="review-text">„დღეს პირველად ვეწვიე და უკვე ჩემი საყვარელი გვერდი გახდა. ვიზუალი და შინაარსი სრულ ჰარმონიაშია.“</p>
+        </div>
+
+      
+        <div class="review-card">
+            <div class="review-header">
+                <img src="image/pf3.jpg" alt="მკითხველი" class="reviewer-avatar">
+                <div>
+                    <h4 class="reviewer-name">ნინო ბ.</h4>
+                    <div class="stars">★ ★ ★ ★ ☆</div>
+                </div>
+            </div>
+            <p class="review-text">„ძალიან მრავალფეროვანი კონტენტია. განსაკუთრებით მომეწონა ლიტერატურული მიმოხილვები.“</p>
+        </div>
+
+    </div>
+</section>
+
+    </div>
+</section>
 
 
     <section id="blog" style="background: var(--pale-blue);">
