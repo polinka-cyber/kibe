@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>საგანმანათლებლო პლატფორმა</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="fonts.css">
+ 
+    <style>
+        :root {
+            --primary-blue: #2A6F97;
+            --sky-blue: #48CAE4;
+            --light-sky: #ADE8F4;
+            --pale-blue: #CAF0F8;
+            --soft-bg: #F4FBFD;
+            --text-dark: #1D3557;
+            --white: #FFFFFF;
+            --shadow: 0 10px 25px rgba(42, 111, 151, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Georgian', sans-serif;
+        }
+
+        body {
+            background-color: var(--soft-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .logo-container:hover {
+            opacity: 0.9;
+        }
+
+        .logo-container img {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: var(--white);
+            padding: 3px;
+        }
+
+        .logo-container span {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            padding: 4rem 5%;
+            text-align: center;
+            background: linear-gradient(rgba(11, 19, 43, 0.75), rgba(28, 37, 65, 0.75)), url("src/image/photopng.png");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            color: #227db1;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            max-width: 600px;
+        }
+
+        .btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: #1d5274;
+        }
+
+        section {
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--sky-blue);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .puzzle-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .puzzle-card-top {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .puzzle-card-1 { border-top: 8px solid var(--sky-blue); }
+        .puzzle-card-2 { border-top: 8px solid var(--primary-blue); }
+        .puzzle-card-3 { border-top: 8px solid var(--light-sky); }
+
+        .puzzle-card-top:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(42, 111, 151, 0.15);
+        }
+
+        .puzzle-img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: var(--pale-blue);
+        }
+
+        .puzzle-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .puzzle-card-top:hover .puzzle-img-container img {
+            transform: scale(1.05);
+        }
+
+        .puzzle-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .puzzle-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+        }
+
+        .puzzle-content p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .details-link {
+            font-weight: 600;
+            color: var(--primary-blue);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 19, 43, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            width: 100%;
+            max-width: 650px;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: relative;
+            animation: modalScale 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        @keyframes modalScale {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--pale-blue);
+            color: var(--primary-blue);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--sky-blue);
+            color: var(--white);
+        }
+
+        .modal-content h3 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            color: #555;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .puzzle-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--light-sky);
+        }
+
+        .gallery-box {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--light-sky);
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .media-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: var(--white);
+            height: 280px;
+            width: 100%;
+            border: 2px solid var(--pale-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .media-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* გვერდითა ფიქსირებული სოციალური პანელი (მარჯვენა მხარეს) */
+        .social-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 998;
+        }
+
+        .social-sidebar a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+
+        .social-sidebar a.fb-icon {
+            background: #1877F2;
+        }
+
+        .social-sidebar a.ig-icon {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+
+        .social-sidebar a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .social-sidebar {
+                right: 10px;
+            }
+            .social-sidebar a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        footer {
+            background: #1b4965;
+            color: var(--white);
+            padding: 3.5rem 5% 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--sky-blue);
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--sky-blue);
+        }
+
+        .footer-col p, .footer-col a {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--sky-blue);
+        }
+
+        .footer-col p i, .footer-col a i {
+            margin-right: 10px;
+            color: var(--sky-blue);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .footer-socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .footer-socials a:hover {
+            background: var(--sky-blue);
+            color: var(--text-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .footer-content {
+                text-align: center;
+            }
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .footer-socials {
+                justify-content: center;
+            }
+        }
+
+        .single-team-section {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: var(--soft-bg);
+        }
+
+        .single-team-container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(11, 19, 43, 0.1);
+            border: 3px solid #3A86FF;
+            transition: transform 0.3s ease;
+        }
+
+        .single-team-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .single-team-img {
+            width: 100%;
+            height: 590px;
+            object-fit: cover;
+        }
+
+        .single-team-info {
+            padding: 25px;
+        }
+
+        .single-team-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .single-team-info p {
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .faq-section {
+            padding: 4rem 5%;
+            background: #F0F8FF;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(11, 19, 43, 0.05);
+            overflow: hidden;
+            border: 2px solid #E2E8F0;
+            transition: border-color 0.3s;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: #3A86FF;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 25px;
+            color: #555;
+            font-size: 1rem;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 25px 20px 25px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ფიქსირებული სოციალური ქსელები გვერდზე (მარჯვენა მხარეს) -->
+    <div class="social-sidebar">
+        <a href="https://www.facebook.com/share/1F4XBx5vFT/?mibextid=wwXIfr" target="_blank" class="fb-icon" title="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/kibe.education?stkn=MWc3aWpxd2VlZm45Zg==" target="_blank" class="ig-icon" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+    </div>
+
+    <header>
+        <a href="#home" class="logo-container">
+            <img src="src/image/logo.jpg" alt="ლოგო">
+            <span>კიბე განათლებული მომავლისკენ  <br> Stairway to Educated Future</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#home">მთავარი</a></li>
+                <li><a href="#courses">კურსები</a></li>
+                <li><a href="#gallery">გალერია</a></li>
+                <li><a href="#blog">ბლოგი</a></li>
+                <li><a href="#contact">კონტაქტი</a></li>
+            </ul>
+        </nav>
+        <a href="https://short-url.cc/1z1gj" target="_blank" class="btn">მოსწავლის რეგისტრაცია</a>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>თანამედროვე განათლება და განვითარება ბავშვებისთვის</h1>
+        <a href="https://short-url.cc/1z1gj" target="_blank" class="btn">რეგისტრაცია</a>
+    </section>
+
+    <section id="courses">
+        <h2 class="section-title">ძირითადი მიმართულებები და კურსები</h2>
+        
+        <div class="puzzle-grid-3">
+            <div class="puzzle-card-top puzzle-card-1" onclick="showCourseInfo('school')">
+                <div class="puzzle-img-container">
+                    <img src="src/image/56.jpg" alt="სკოლა">
+                </div>
+                <div class="puzzle-content">
+                    <div>
+                        <h3>V-VI კლასი</h3>
+                        <p>სკოლის ასაკის ბავშვებისთვის განკუთვნილი ინტერაქტიული საგანმანათლებლო პროგრამები.</p>
+                    </div>
+                    <span class="details-link">იხილეთ დეტალები <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <div class="puzzle-card-top puzzle-card-2" onclick="showCourseInfo('kindergarten')">
+                <div class="puzzle-img-container">
+                    <img src="src/image/78.jpg" alt="საბავშვო ბაღი">
+                </div>
+                <div class="puzzle-content">
+                    <div>
+                        <h3>VII-VIII კლასი</h3>
+                        <p>სკოლამდელი აღზრდის პროგრამები და ბავშვის ინდივიდუალურ საჭიროებებზე მორგებული გარემო.</p>
+                    </div>
+                    <span class="details-link">იხილეთ დეტალები <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <div class="puzzle-card-top puzzle-card-3" onclick="showCourseInfo('sunday')">
+                <div class="puzzle-img-container">
+                    <img src="src/image/910.jpg" alt="საკვირაო სკოლა">
+                </div>
+                <div class="puzzle-content">
+                    <div>
+                        <h3>IX-X კლასი</h3>
+                        <p>შემეცნებითი და განმავითარებელი აქტივობები, შემოქმედებითი უნარების გასავითარებლად.</p>
+                    </div>
+                    <span class="details-link">იხილეთ დეტალები <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <section class="single-team-section" style="padding-bottom: 0;">
+            <h2 class="section-title">ჩვენი გუნდი</h2>
+            <div class="single-team-container">
+                <img src="src/image/kibe.jpg" alt="ჩვენი გუნდი" class="single-team-img">
+                <div class="single-team-info">
+                    <h3>პროფესიონალთა გუნდი</h3>
+                    <p>ჩვენი გამოცდილი და კვალიფიციური პედაგოგები მზად არიან იზრუნონ თქვენი შვილის წარმატებაზე.</p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <div id="courseModal" class="modal-overlay" onclick="closeModalOnOutside(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="modalTitle">კურსის სათაური</h3>
+            <div id="modalBody">
+            </div>
+        </div>
+    </div>
+
+  
+    <section id="gallery">
+        <h2 class="section-title">ფოტო გალერია</h2>
+        <div class="gallery-box">
+            <div class="media-grid">
+                <div class="media-card"><img src="src/image/11.jpg" alt="გალერიის ფოტო 1"></div>
+                <div class="media-card"><img src="src/image/22.jpg" alt="გალერიის ფოტო 2"></div>
+                <div class="media-card"><img src="src/image/33.jpg" alt="გალერიის ფოტო 3"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="blog" style="background: var(--pale-blue);">
+        <h2 class="section-title">ბლოგი და სიახლეები</h2>
+        <div class="puzzle-grid">
+            <div class="puzzle-card" style="text-align: left;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px;">როგორ დავეხმაროთ ბავშვს მოტივაციის ამაღლებაში</h3>
+                <p style="color: #555; font-size: 0.95rem;">რჩევები მშობლებისთვის წარმატებული სასწავლო პროცესის მისაღწევად...</p>
+            </div>
+            <div class="puzzle-card" style="text-align: left;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px;">საზაფხულო სკოლის უპირატესობები</h3>
+                <p style="color: #555; font-size: 0.95rem;">რატომ არის მნიშვნელოვანი არდადეგების პერიოდში გონებრივი აქტივობა...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <h2 class="section-title">ხშირად დასმული კითხვები</h2>
+        <div class="faq-container">
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>როგორ შეგვიძლია რეგისტრაციის გავლა?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    რეგისტრაციისთვის შეგიძლიათ გამოიყენოთ საიტზე არსებული რეგისტრაციის ღილაკი, რომელიც გადაგაგზავნით სარეგისტრაციო ბმულზე.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>რა ასაკის ბავშვებისთვის არის განკუთვნილი პროგრამები?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    ჩვენი კურსი მოიცავს V-X კლასის მოსწავლეების პროგრამას.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>ტარდება თუ არა გაკვეთილები ონლაინ, თუ მხოლოდ ფიზიკურად ვიმყოფებით ცენტრში?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                ძირითადი შეხვედრები და აქტივობები მიმდინარეობს ფიზიკურად, ჩვენს საგანმანათლებლო ცენტრში (ქ. ფოთი, აბ. ვეკუას ქ. #11), რათა მოსწავლეებს ჰქონდეთ ცოცხალი კომუნიკაცია, გუნდური მუშაობის და ინტერაქციის შესაძლებლობა. თუმცა, ზოგიერთი არჩევითი ან დამატებითი აქტივობა შესაძლოა ჰიბრიდულ ფორმატსაც ითვალისწინებდეს.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>სავაჭრო / საგანმანათლებლო</h3>
+                <p>კიბე განათლებული მომავლისკენ — თანამედროვე და მორგებული გარემო თქვენი შვილების წარმატებისთვის.</p>
+            </div>
+            <div class="footer-col">
+                <h3>საკონტაქტო ინფორმაცია</h3>
+                <p><i class="fa-solid fa-phone"></i> +995 577 32 00 25</p>
+                <p><i class="fa-solid fa-envelope"></i> info@kibe.edu.ge</p>
+                <p><i class="fa-solid fa-location-dot"></i> ქალაქი ფოთი, აბ.ვეკუას ქუჩა ნ.11</p>
+            </div>
+            <div class="footer-col">
+                <h3>მოგვყევით სოციალურ ქსელში</h3>
+                <p>გაეცანით ჩვენს სიახლეებს სოციალურ პლატფორმებზე:</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/share/1F4XBx5vFT/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/kibe.education?stkn=MWc3aWpxd2VlZm45Zg==" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 საგანმანათლებლო პლატფორმა. ყველა უფლება დაცულია.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showCourseInfo(type) {
+            const modal = document.getElementById('courseModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            if (type === 'school') {
+                title.textContent = 'V-VI კლასის საგანმანათლებლო კურსი';
+                body.innerHTML = `
+                    <p>„კიბე - განათლებული მომავლისკენ“ V-VI კლასების მოსწავლეებს სთავაზობს საგანმანათლებლო პროგრამას, რომელიც ბავშვის განვითარებას მხოლოდ აკადემიურ ცოდნაზე არ ამყარებს.
+ამ ასაკში განსაკუთრებით მნიშვნელოვანია ბავშვის ინტერესების გაღვივება, საკუთარი აზრის თავისუფლად გამოხატვა, მოსმენა, მსჯელობა, კომუნიკაცია და სხვებთან თანამშრომლობა.
+სწორედ ამიტომ, „კიბეს საკვირაო სკოლაში“ სწავლა ხდება კითხვით, დისკუსიით, თამაშით, ხელოვნებითა და პრაქტიკული გამოცდილებით.</p>
+                    <p><strong>პროგრამა მოიცავს:</strong></p>
+                    📚 მხატვრული ლიტერატურის კითხვა და განხილვა:
+ბავშვები წინასწარ მიიღებენ ასაკის შესაბამის მხატვრულ ნაწარმოებს, რომელსაც დამოუკიდებლად წაიკითხავენ, ხოლო შეხვედრაზე ერთად განიხილავენ.
+ჩვენი მიზანია, კითხვა მხოლოდ დავალებად არ დარჩეს. ბავშვები ისწავლიან პერსონაჟების ქცევის გაანალიზებას, საკუთარი მოსაზრების არგუმენტირებულად გამოხატვას, განსხვავებული შეხედულებების მოსმენასა და მსჯელობას.
+<br> 🎬 ფილმებისა და სპექტაკლების ჩვენება და განხილვა
+პროგრამის ფარგლებში ბავშვები გაეცნობიან საინტერესო ფილმებსა და სპექტაკლებს, რომლებიც მათ ასაკსა და ინტერესებს შეესაბამება.
+ჩვენება მხოლოდ სანახაობა არ იქნება - მას მოჰყვება განხილვა და მსჯელობა: რას გვიყვება ნამუშევარი, როგორ იქცევიან პერსონაჟები, რას ვეთანხმებით ან არ ვეთანხმებით და რას გვაფიქრებინებს ნანახი.
+<br> 🧠 ინტელექტუალური ვიქტორინები და სამაგიდო თამაშები
+საგანმანათლებლო პროცესი თამაშით განსაკუთრებით საინტერესო ხდება.
+ინტელექტუალური ვიქტორინებისა და სხვადასხვა სამაგიდო თამაშის საშუალებით ბავშვები განივითარებენ ლოგიკურ და კრიტიკულ აზროვნებას, ყურადღებას, სწრაფი გადაწყვეტილების მიღებას, გუნდურ მუშაობასა და პრობლემის გადაჭრის უნარებს.
+<br>🎤 მეტყველებისა და საჯარო საუბრის წრე
+ბავშვს უნდა შეეძლოს არა მხოლოდ ცოდნის მიღება, არამედ საკუთარი აზრის მკაფიოდ და თავდაჯერებულად გამოხატვაც, რაც თანამედროვე ტექნოლოგიური გამოწვევების პირობებში გართულებულია.
+მეტყველებისა და საჯარო საუბრის შეხვედრებზე მოსწავლეები იმუშავებენ სწორ და გამართულ მეტყველებაზე, აზრის ჩამოყალიბებასა და გადმოცემაზე, აუდიტორიის წინაშე საუბარსა და საკუთარი თავის თავისუფლად წარმოჩენაზე. <br>
+„კიბეს საკვირაო სკოლა“ იწყება ოქტომბერში და გრძელდება ივნისის ჩათვლით. <br>
+9 თვის განმავლობაში მოსწავლეები მიიღებენ მრავალფეროვან გამოცდილებას, რომელიც აერთიანებს ლიტერატურას, ხელოვნებას, ინტელექტუალურ თამაშებს, კომუნიკაციასა და პრაქტიკულ გამოცდილებას. <br>
+<strong>პროგრამის საფასური:</strong> <br> •120 ლარი თვეში
+<br>•სრული კურსი: 9 თვე - 63 შეხვედრა
+<br><strong>ფასდაკლებები:</strong>
+<br>• სრული 9-თვიანი კურსის საფასურის ერთიანად გადახდის შემთხვევაში - 20% ფასდაკლება;
+<br>• დედმამიშვილების მონაწილეობის შემთხვევაში - 30% ფასდაკლება.`;
+            } else if (type === 'kindergarten') {
+                title.textContent = 'VII-VIII კლასის საგანმანათლებლო კურსი';
+                body.innerHTML = `
+                    <p>„კიბე - განათლებული მომავლისკენ“ VII-VIII კლასების მოსწავლეებს სთავაზობს პროგრამას, რომელიც ავითარებს დამოუკიდებელ აზროვნებას, მსჯელობის, კომუნიკაციის, გუნდური მუშაობისა და საკუთარი იდეების რეალიზების უნარებს.
+ამ ასაკში ბავშვის ინტერესები უკვე უფრო მკაფიო ხდება. სწორედ ამიტომ, პროგრამა ორი ნაწილისგან შედგება: სავალდებულო ძირითადი ბლოკისა და არჩევითი მიმართულებებისგან.
+ძირითადი პროგრამა ყველა მოსწავლისთვის საერთო გამოცდილებას ქმნის, ხოლო არჩევითი კურსები საშუალებას აძლევს თითოეულ მოსწავლეს, საკუთარი ინტერესის მიხედვით აირჩიოს დამატებითი მიმართულება.</p>
+                    <p><strong>პროგრამა მოიცავს :</strong></p>
+                 <br> 📚 წიგნის კითხვა და განხილვა
+ყოველი თვის დასაწყისში მოსწავლეები მიიღებენ საკითხავ წიგნს, რომელსაც დამოუკიდებლად წაიკითხავენ.
+თვის ბოლოს გაიმართება საერთო შეხვედრა, სადაც წიგნს ერთად განიხილავენ, იმსჯელებენ პერსონაჟებზე, მოვლენებზე, ავტორის სათქმელსა და საკუთარ შთაბეჭდილებებზე.
+თვეში ერთი წიგნი - ერთი საერთო დისკუსია.
+მიზანი მხოლოდ მეტი წიგნის წაკითხვა არ არის. მოსწავლეები სწავლობენ ტექსტის გააზრებას, არგუმენტირებულ მსჯელობას, განსხვავებული მოსაზრების მოსმენასა და საკუთარი პოზიციის დაცვას. 
+<br>🎬 ფილმისა და სპექტაკლის ჩვენება  - განხილვა
+კარგი ფილმი ან სპექტაკლი შეიძლება ისეთივე საინტერესო სასწავლო გამოცდილება იყოს, როგორც წიგნი.
+მოსწავლეები ნახავენ მათი ასაკისთვის შესაბამის ფილმებსა და სპექტაკლებს, შემდეგ კი იმსჯელებენ ნანახზე — პერსონაჟებზე, კონფლიქტებზე, რეჟისორის სათქმელზე და საკუთარ დამოკიდებულებაზე.
+<br>🧠 ინტელექტუალური თამაშები და  სამაგიდო თამაშები 
+პროგრამაში შევა სხვადასხვა ფორმატის ინტელექტუალური თამაში:
+<br>• „რა? სად? როდის?“
+<br>• „ბრეინ-რინგი“
+<br>• „ერუდიტი“
+<br>• „ჯეპარდი“
+<br>• სხვადასხვა თემატური ვიქტორინა
+თამაშის ფორმატი მოსწავლეებს ცოდნის გამოყენებას, სწრაფ აზროვნებას, ყურადღებასა და გუნდურ მუშაობას ასწავლის.
+მოსწავლეები ითამაშებენ ისეთ სამაგიდო თამაშებს, რომლებიც ავითარებს ლოგიკურ და სტრატეგიულ აზროვნებას, გადაწყვეტილების მიღებას, კომუნიკაციასა და გუნდურ მუშაობას.
+აქ თამაში ხდება აზროვნების პრაქტიკა.
+<br>🗣️ დებატების სკოლა
+მოსწავლეები გაეცნობიან დებატების ძირითად პრინციპებს და ისწავლიან, როგორ ჩამოაყალიბონ საკუთარი პოზიცია, მოიძიონ არგუმენტები, მოუსმინონ ოპონენტს და დაიცვან საკუთარი მოსაზრება.
+დებატები ავითარებს არა მხოლოდ მეტყველებას, არამედ კრიტიკულ აზროვნებას, არგუმენტაციას, მოსმენასა და პასუხისმგებლიან კომუნიკაციას.
+წლის ბოლოს გაიმართება გუნდური დებატები.
+<br>💬 სალონური საუბრები -  შეხვედრები საინტერესო ადამიანებთან
+სასწავლო წლის განმავლობაში მოსწავლეებს ექნებათ ორი განსაკუთრებული შეხვედრა - ერთი ახალ წლამდე, მეორე კი ახალი წლის შემდეგ.
+მოსწავლეები შეხვდებიან მოწვეულ ცნობილ ადამიანებს და მონაწილეობას მიიღებენ სალონურ საუბარში  - თავისუფალ, საინტერესო და შინაარსიან დიალოგში.
+ეს იქნება შესაძლებლობა, ახალგაზრდებმა უშუალოდ დაუსვან კითხვები საინტერესო ადამიანებს, მოისმინონ მათი გამოცდილება და ისაუბრონ მათთვის მნიშვნელოვან თემებზე.
+<br>📱 ონლაინ-მედიის კურსი
+როგორ იქმნება თანამედროვე ონლაინმედია? როგორ მოვამზადოთ საინტერესო და პასუხისმგებლიანი კონტენტი? როგორ გადავამოწმოთ ინფორმაცია და როგორ გავარჩიოთ ფაქტი მოსაზრებისგან?
+კურსი მოსწავლეებს გაეცნობს თანამედროვე მედიის სამყაროს და მისცემს მათ საკუთარი მედია-პროექტების შექმნის შესაძლებლობას.
+<br>💻 პროგრამირება და ხელოვნური ინტელექტის გამოყენება
+მოსწავლეები გაეცნობიან პროგრამირების საფუძვლებს და თანამედროვე ხელოვნური ინტელექტის ინსტრუმენტების გამოყენების შესაძლებლობებს.
+<br>🎨 გრაფიკული დიზაინი
+კურსი განკუთვნილია მოსწავლეებისთვის, რომლებსაც აინტერესებთ ვიზუალური კომუნიკაცია, დიზაინი და კრეატიული იდეების გამოსახულებად გარდაქმნა.
+<br><strong>პროგრამის ღირებულება:</strong>
+<br>• ძირითადი სავალდებულო პროგრამა - 120 ლარი თვეში
+<br>• არჩევითი კურსი - 30 ლარი თვეში თითო მიმართულება
+<br><strong>ფასდაკლებები:</strong>
+<br>• სრული 9-თვიანი კურსის საფასურის ერთიანად გადახდის შემთხვევაში - 20% ფასდაკლება;
+<br>• დედმამიშვილების მონაწილეობის შემთხვევაში - 30% ფასდაკლება.`;
+            } else if (type === 'sunday') {
+                title.textContent = 'IX-X კლასის საგანმანათლებლო კურსი';
+                body.innerHTML = `
+                    <p>კიბეს საკვირაო სკოლა IX-X კლასები
+„კიბე - განათლებული მომავლისკენ“ IX-X კლასების მოსწავლეებს სთავაზობს პროგრამას, რომელიც ეხმარება მათ არა მხოლოდ ცოდნის მიღებაში, არამედ საკუთარი ინტერესების, შესაძლებლობებისა და მომავლის უკეთ გააზრებაში.</p>
+                    <p><strong>პროგრამა მოიცავს:</strong></p>
+                    <br>📚 წიგნის კითხვა და განხილვა
+                    <br>🎬 ფილმისა და სპექტაკლის ჩვენება - განხილვა
+                    <br>🧠 ინტელექტკლუბი და სამაგიდო თამაშები
+                    <br>🧭 პროფესიული ორიენტაცია და მეწარმეობის საფუძვლები
+                    <br>💬 სალონური საუბრები — შეხვედრები საინტერესო ადამიანებთან
+                    <br>📱 ონლაინ-მედიის კურსი
+                    <br>💻 პროგრამირება და ხელოვნური ინტელექტის გამოყენება
+                    <br>🎨 გრაფიკული დიზაინი
+                    <br><strong>პროგრამის ღირებულება:</strong>
+                    <br>• ძირითადი სავალდებულო პროგრამა - 120 ლარი თვეში
+                    <br>• არჩევითი კურსი - 30 ლარი თვეში თითო მიმართულება
+                    <br><strong>ფასდაკლებები:</strong>
+                    <br>• სრული 9-თვიანი კურსის საფასურის ერთიანად გადახდის შემთხვევაში - 20% ფასდაკლება;
+                    <br>• დედმამიშვილების მონაწილეობის შემთხვევაში - 30% ფასდაკლება.`;
+            }
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('courseModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnOutside(event) {
+            const modal = document.getElementById('courseModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function toggleFaq(item) {
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(i => {
+                if (i !== item) i.classList.remove('active');
+            });
+            item.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
